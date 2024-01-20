@@ -15,5 +15,6 @@ public class UserRegistrationRequest {
     String name;
     @NotBlank(message = "This field must not be blank")
     String email;
+    @NotBlank(message = "This field must not be blank")
     String password;
 }

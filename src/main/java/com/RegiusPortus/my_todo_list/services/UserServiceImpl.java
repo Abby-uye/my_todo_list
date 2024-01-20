@@ -20,9 +20,14 @@ public class UserServiceImpl implements UserService {
         User foundUser = userRepository.findByEmail(userRegistrationRequest.getEmail());
         if (foundUser != null) throw new UserException(GenerateApiResponse.USER_ALREADY_EXIST);
         if (!(validEmail(userRegistrationRequest.getEmail()))) throw new UserException(GenerateApiResponse.INVALID_EMAIL);
+        if (!(validPassword(userRegistrationRequest.getPassword())))throw new UserException(GenerateApiResponse.WEAK_PASSWORD);
         User newUser = modelMapper.map(userRegistrationRequest, User.class);
         userRepository.save(newUser);
         return GenerateApiResponse.created(GenerateApiResponse.USER_CREATED_SUCCESSFULLY).getBody();
+    }
+
+    private boolean validPassword(String password) {
+        return password.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
     }
 
     private boolean validEmail(String email) {
