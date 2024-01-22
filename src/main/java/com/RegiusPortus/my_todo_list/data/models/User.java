@@ -1,23 +1,26 @@
 package com.RegiusPortus.my_todo_list.data.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.io.Serializable;
+import java.util.Set;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-    String name;
-    String email;
-    String password;
+   private  Long id;
+   private  String name;
+   private String email;
+   private String password;
+   private transient boolean isLoggedIn;
+   @OneToMany(fetch = FetchType.EAGER)
+   private Set<Task> taskList;
 }

@@ -15,6 +15,16 @@ public class GlobalException {
                         .data(userException.getMessage())
                         .httpStatus(HttpStatus.BAD_REQUEST)
                         .isSuccessful(false)
+                        .statusCode(HttpStatus.BAD_REQUEST.value())
                         .build(), HttpStatus.BAD_REQUEST);
     }
+@ExceptionHandler(TaskException.class)
+    public ResponseEntity<ApiResponse> TaskException(TaskException taskException){
+        return new ResponseEntity<>(ApiResponse.builder()
+            .data(taskException.getMessage())
+            .httpStatus(HttpStatus.BAD_REQUEST)
+            .statusCode(HttpStatus.BAD_REQUEST.value())
+            .isSuccessful(false)
+                .build(),HttpStatus.BAD_REQUEST);
+}
 }
