@@ -2,7 +2,11 @@ package com.RegiusPortus.my_todo_list.controllers;
 
 import com.RegiusPortus.my_todo_list.dtos.UserLoginRequest;
 import com.RegiusPortus.my_todo_list.dtos.UserRegistrationRequest;
+import com.RegiusPortus.my_todo_list.dtos.projectDtos.ProjectCreationRequest;
+import com.RegiusPortus.my_todo_list.dtos.projectDtos.ProjectRemovalRequest;
 import com.RegiusPortus.my_todo_list.dtos.taskDtos.TaskCreationRequest;
+import com.RegiusPortus.my_todo_list.dtos.taskDtos.TaskRemovalRequest;
+import com.RegiusPortus.my_todo_list.exceptions.ProjectException;
 import com.RegiusPortus.my_todo_list.exceptions.TaskException;
 import com.RegiusPortus.my_todo_list.exceptions.UserException;
 import com.RegiusPortus.my_todo_list.services.UserService;
@@ -43,7 +47,24 @@ public class UserController {
         return new ResponseEntity<>(userService.createTask(taskCreationRequest),HttpStatus.CREATED);
 
     }
-
+    @PostMapping("user/createProject")
+    public ResponseEntity<ApiResponse> createProject(@RequestBody @Valid ProjectCreationRequest projectCreationRequest,BindingResult result) throws ProjectException, UserException {
+        ResponseEntity<ApiResponse> errorMessage = getApiResponseResponseEntity(result);
+        if (errorMessage!=null) return errorMessage;
+        return new ResponseEntity<>(userService.createProject(projectCreationRequest),HttpStatus.CREATED);
+    }
+    @PostMapping("user/removeTask")
+    public ResponseEntity<ApiResponse> removeTask(@RequestBody @Valid TaskRemovalRequest taskRemovalRequest,BindingResult result) throws TaskException, UserException {
+        ResponseEntity<ApiResponse> errorMessage = getApiResponseResponseEntity(result);
+        if (errorMessage!=null) return errorMessage;
+        return new ResponseEntity<>(userService.removeTask(taskRemovalRequest),HttpStatus.OK);
+    }
+    @PostMapping("user/removeProject")
+    public ResponseEntity<ApiResponse> removeProject(@RequestBody @Valid ProjectRemovalRequest projectRemovalRequest,BindingResult result) throws ProjectException, UserException {
+        ResponseEntity<ApiResponse> errorMessage = getApiResponseResponseEntity(result);
+        if(errorMessage!=null) return errorMessage;
+        return new ResponseEntity<>(userService.removeProject(projectRemovalRequest),HttpStatus.OK);
+    }
     private ResponseEntity<ApiResponse> getApiResponseResponseEntity(BindingResult result) {
         if (result.hasErrors()) {
             StringBuilder errorMessage = new StringBuilder("Validation error(s): ");

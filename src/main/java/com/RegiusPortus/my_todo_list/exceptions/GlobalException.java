@@ -27,4 +27,13 @@ public class GlobalException {
             .isSuccessful(false)
                 .build(),HttpStatus.BAD_REQUEST);
 }
+@ExceptionHandler(ProjectException.class)
+    public ResponseEntity<ApiResponse> projectException(ProjectException projectException){
+    return new ResponseEntity<>(ApiResponse.builder()
+            .data(projectException.getMessage())
+            .httpStatus(HttpStatus.BAD_REQUEST)
+            .statusCode(HttpStatus.BAD_REQUEST.value())
+            .isSuccessful(false)
+            .build(),HttpStatus.BAD_REQUEST);
+}
 }

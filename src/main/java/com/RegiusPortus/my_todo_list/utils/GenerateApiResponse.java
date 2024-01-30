@@ -16,6 +16,14 @@ public class GenerateApiResponse {
     public static final String INCORRECT_CONFIRM_PASSWORD = "Check and confirm password ";
     public static final String TAX_ALREADY_EXIST = "You have a task with this name already, i think you should work on completing the task instead" ;
     public static final String TASK_CREATED_SUCCESSFULLY = "Task created successfully, now lets work on completing it champ";
+    public static final String TASK_DOES_NOT_EXIST = "There is no task with this name in your task list " ;
+    public static final String SUCCESSFULLY_REMOVED_TASK = "successfully removed task";
+    public static final String USER_IS_NOT_LOGGEDIN = "To create a new new project you need to be logged in";
+    public static final String PROJECT_ALREADY_EXIST = "You have an existing project with this name i think you should work on completing it instead";
+    public static final String PROJECT_CREATED_SUCCESSFULLY = "Project created Successfully";
+    public static final String PROJECT_DOES_NOT_EXIST = "You do not have a project with this info";
+    public static final String PROJECT_REMOVED_SUCCESSFULLY = "Project removed successfully" ;
+    public static final String TASK_ADDED_TO_PROJECT_SUCCESSFULLY = "Task added to project successfully,remember completing a project depends, starts with completing a task,let go my champ";
 
     public static  ResponseEntity<ApiResponse> created(Object data){
         return new ResponseEntity<>(

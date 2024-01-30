@@ -13,5 +13,6 @@ import lombok.Setter;
 public class TaskRemovalRequest {
     @NotBlank(message = "This field must not be null")
     String taskName;
+    @NotBlank(message = "This field must not be left blank")
     String userEmail;
 }

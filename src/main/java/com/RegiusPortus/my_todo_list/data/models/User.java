@@ -23,4 +23,6 @@ public class User implements Serializable {
    private transient boolean isLoggedIn;
    @OneToMany(fetch = FetchType.EAGER)
    private Set<Task> taskList;
+   @OneToMany(fetch = FetchType.EAGER)
+   private Set<Project> projectList;
 }
