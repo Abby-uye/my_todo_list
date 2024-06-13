@@ -26,5 +26,7 @@ public class Project {
     private Status status;
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Task> taskList;
+//    @ManyToOne
+//    private User user;
 
 }

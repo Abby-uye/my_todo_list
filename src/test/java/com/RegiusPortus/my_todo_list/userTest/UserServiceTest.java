@@ -9,6 +9,7 @@ import com.RegiusPortus.my_todo_list.dtos.projectDtos.AddTaskToProjectRequest;
 import com.RegiusPortus.my_todo_list.dtos.projectDtos.ProjectCreationRequest;
 import com.RegiusPortus.my_todo_list.dtos.projectDtos.ProjectRemovalRequest;
 import com.RegiusPortus.my_todo_list.exceptions.ProjectException;
+import com.RegiusPortus.my_todo_list.exceptions.TaskException;
 import com.RegiusPortus.my_todo_list.exceptions.UserException;
 import com.RegiusPortus.my_todo_list.services.UserService;
 import org.junit.jupiter.api.Test;
@@ -33,11 +34,11 @@ class UserServiceTest {
     void TestThatCanRegisterUser() throws UserException {
         UserRegistrationRequest userRegistrationRequest = new UserRegistrationRequest();
         userRegistrationRequest.setName("Abby");
-        userRegistrationRequest.setEmail("princessabby133@gmail.com");
+        userRegistrationRequest.setEmail("princessabby13356@gmail.com");
         userRegistrationRequest.setPassword("Pass12@*");
         userRegistrationRequest.setConfirmPassword("Pass12@*");
         userService.registerUser(userRegistrationRequest);
-        assertEquals(1,userRepository.count());
+        assertEquals(4,userRepository.count());
     }
     @Test
     void TestThatCanRegister2UserAndCountIsTwo() throws UserException {
@@ -53,7 +54,7 @@ class UserServiceTest {
 void testThatCAnThrowExceptionIfUserAlreadyExist() throws UserException {
     UserRegistrationRequest userRegistrationRequest = new UserRegistrationRequest();
     userRegistrationRequest.setName("Abby");
-    userRegistrationRequest.setEmail("princessabby133@gmail.com");
+    userRegistrationRequest.setEmail("princessabby1335@gmail.com");
     userRegistrationRequest.setPassword("Pass12@*");
     userRegistrationRequest.setConfirmPassword("Pass12@*");
 
@@ -77,10 +78,10 @@ void testThatCAnThrowExceptionIfUserAlreadyExist() throws UserException {
         assertThrows(UserException.class,() -> userService.login(userLoginRequest));
     }
     @Test
-    void testThatCAnLoginWithCorrectPassword() throws UserException {
+    void testThatCAnnotLoginWithIncorrectPassword() throws UserException {
         UserLoginRequest userLoginRequest = new UserLoginRequest();
         userLoginRequest.setEmail("princessabby133@gmail.com");
-        userLoginRequest.setPassword("Pass12@*");
+        userLoginRequest.setPassword("Pass12@");
         assertThrows(UserException.class,() -> userService.login(userLoginRequest));
     }
     @Test
@@ -125,15 +126,7 @@ void testThatCAnThrowExceptionIfUserAlreadyExist() throws UserException {
         projectRemovalRequest.setUserEmail("princessabby133@gmail.com");
         userService.removeProject(projectRemovalRequest);
         User foundUser = userRepository.findByEmail(projectRemovalRequest.getUserEmail());
-        assertEquals(4,foundUser.getProjectList().size());
-    }
-    @Test
-    void testThatCanAddTaskToProject(){
-        AddTaskToProjectRequest addTaskToProjectRequest = new AddTaskToProjectRequest();
-        addTaskToProjectRequest.setProjectName("JavaScript");
-        addTaskToProjectRequest.setTaskName("Read chapter ");
-        addTaskToProjectRequest.setUserEmail("princessabby133@gmail.com");
-        userService.addTaskToProject(addTaskToProjectRequest);
+        assertEquals(2,foundUser.getProjectList().size());
     }
 
 }

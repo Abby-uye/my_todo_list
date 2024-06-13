@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService{
     private void removeProject(Project project,String userEmail){
         User foundUser = userRepository.findByEmail(userEmail);
         foundUser.getProjectList().remove(project);
-                projectRepository.delete(project);
+        userRepository.save(foundUser);
             }
 
 
